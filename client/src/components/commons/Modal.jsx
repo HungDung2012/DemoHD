@@ -1,8 +1,16 @@
 import React from 'react'
+import { useAppStore } from '~/store/useAppStore'
 
 const modal = () => {
-  return <div>modal</div>
-  
+  const { contentModal, setModal } = useAppStore()
+  return (
+    <div 
+      onClick={() => setModal(false, null )} 
+      className="absolute z-[999] h-screen w-screen flex justify-center bg-overlay-50"
+    >
+      {contentModal}
+    </div>
+  )
 }
 
 export default modal
