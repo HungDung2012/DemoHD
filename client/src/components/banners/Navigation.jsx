@@ -9,8 +9,8 @@ import { useUserStore } from '~/store/useUserStore'
 import { useAppStore } from '~/store/useAppStore'
 import Login from '~/components/login/Login'
 
-const Navigation = ({ location }) => {
-  const {token} = useUserStore()
+const Navigation = ({ location, navigate }) => {
+  const { token } = useUserStore()
   const { setModal } = useAppStore()
   return (
     <div 
