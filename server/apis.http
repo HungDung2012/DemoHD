@@ -1,0 +1,4 @@
+### tao cong api Register
+POST http://localhost:5000/api/auth/register?name=hip&phone=123
+Content-Type: application/json
+
