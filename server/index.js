@@ -16,5 +16,5 @@ dbconn()
 
 const PORT = process.env.PORT || 7777
 
-app.listen(PORT, () => console.log(':::::::SERVER RUNNING ON PORT 5000:::::::'))
+app.listen(PORT, () => console.log(':::::::SERVER RUNNING ON PORT ' + PORT))
 // Path: server/index.js
