@@ -4,6 +4,8 @@ import path from './utils/path'
 import { AboutUs, Home, OurAgents, Properties, PublicLayout, Search } from './papes/public'
 import { Modal } from './components'
 import { useAppStore } from './store/useAppStore'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   const { isShowModal } = useAppStore()
@@ -19,6 +21,19 @@ const App = () => {
           <Route path={path.OUR_AGENTS} element={<OurAgents />} />
         </Route>
       </Routes>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        // transition: Bounce
+      />
     </>
   )
 }

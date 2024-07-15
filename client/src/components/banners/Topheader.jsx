@@ -32,7 +32,7 @@ const Topheader = ({ location }) => {
         <div className="flex items-center pl-8 border-l border-main-400">
           <span className="flex items-center gap-2">
             <FaPhone />
-            <span className="text-gray-300">123-456 7890</span>
+            <span className="text-gray-300">012-345 6789</span>
           </span>
         </div>  
       </div>
