@@ -9,7 +9,10 @@ const Button = ({ children, className, handleOnClick, type = 'button', disabled 
       type={type}
       onClick={handleOnClick}
       className={twMerge(
-        clsx('py-3 px-4 text-white bg-main-700 rounded-md flex items-center justify-center gap-3', className, disabled&& 'opacity-50')
+        clsx(
+          'py-3 px-4 text-white bg-main-700 rounded-md flex items-center justify-center gap-3', 
+          className, 
+          disabled && 'opacity-50')
       )}
       disabled={disabled}
     >

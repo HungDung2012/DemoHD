@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import path from './utils/path'
 import { AboutUs, Home, OurAgents, Properties, PublicLayout, Search } from './papes/public'
 import { Modal } from './components'
 import { useAppStore } from './store/useAppStore'
+import { useUserStore } from './store/useUserStore'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   const { isShowModal } = useAppStore()
+  const { getCurrent, current, token } = useUserStore()
+  useEffect(() => {
+    getCurrent()
+  }, [token])
+  console.log(current)
   return (
     <>
       {isShowModal && <Modal />}

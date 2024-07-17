@@ -1,17 +1,27 @@
 import axios from 'axios'
+import clsx from 'clsx';
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
 // Add a request interceptor
-instance.interceptors.request.use(function (config) {
+instance.interceptors.request.use(
+  function (config) {
+    let token = window.localStorage.getItem('rest06')
+    if(token) token = JSON.parse(token)
+    if(token.state?.token) 
+    config.headers = {
+      authorization: `Bearer ${token.state?.token}`,
+    }
     // Do something before request is sent
     return config;
-  }, function (error) {
+  }, 
+  function (error) {
     // Do something with request error
     return Promise.reject(error);
-  });
+  }
+)
 
 // Add a response interceptor
 instance.interceptors.response.use(function (response) {
@@ -22,6 +32,7 @@ instance.interceptors.response.use(function (response) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return error.response.data;
-  });
+  }
+)
 
   export default instance

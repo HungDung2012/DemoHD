@@ -13,7 +13,7 @@ const register = asyncHandler(async(req, res) => {
     const { phone } = req.body
     // handle logic
     const response = await db.User.findOrCreate({
-        where: { phone: phone },
+        where: { phone },
         defaults: req.body
     })
     return res.json({
@@ -26,7 +26,7 @@ const signIn = asyncHandler(async(req, res, next) => {
     try {
         const { phone, password } = req.body
         const user = await db.User.findOne({
-            where: { phone: phone },
+            where: { phone },
         })
         if(!user) return throwErrorWithStatus(401, 'Login Failed!', res, next)
         const isMachingPassword = bcrypt.compareSync(password, user.password)

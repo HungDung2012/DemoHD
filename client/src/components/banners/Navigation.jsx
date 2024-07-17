@@ -5,13 +5,14 @@ import { navigations } from '~/utils/constants'
 import clsx from 'clsx'
 import withRouter from '~/hocs/withRouter'
 import { twMerge } from 'tailwind-merge'
-import { useUserStore } from '~/store/useUserStore'
 import { useAppStore } from '~/store/useAppStore'
+import { useUserStore } from '~/store/useUserStore'
 import Login from '~/components/login/Login'
 
+
 const Navigation = ({ location, navigate }) => {
-  const { token } = useUserStore()
   const { setModal } = useAppStore()
+  const { token } = useUserStore()
   return (
     <div 
       className={twMerge(
