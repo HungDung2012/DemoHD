@@ -11,14 +11,14 @@ module.exports = {
       },
       propertyId: {
         type: Sequelize.UUID,
-        Reference: {
+        references: {
           model: 'Properties',
           key: 'id'
         },
       },
       uid: {
         type: Sequelize.UUID,
-        Reference: {
+        references: {
           model: 'Users',
           key: 'id'
         }
