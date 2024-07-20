@@ -32,7 +32,11 @@ const signIn = asyncHandler(async(req, res, next) => {
         const isMachingPassword = bcrypt.compareSync(password, user.password)
         if(!isMachingPassword) return throwErrorWithStatus(401, 'Login Failed!', res, next)
         
-        const token = jwt.sign({ uid: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '7d' })
+        const token = jwt.sign(
+            { uid: user.id, roleCode: user.roleCode }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '7d' }
+        )
         return res.json({
             success: true,
             mes: "Sign in is successfully.",

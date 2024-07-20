@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: false,
       },
-      propertyTypeid: {
+      propertyTypeId: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
@@ -45,7 +45,7 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      featuredImages: {
+      featuredImage: {
         type: Sequelize.STRING,
         allowNull: false,
       },

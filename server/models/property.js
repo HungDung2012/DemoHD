@@ -15,14 +15,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   Property.init({
     name: DataTypes.STRING,
-    description: DataTypes.text,
+    description: DataTypes.TEXT,
     listingType: {
       type: DataTypes.ENUM,
       values: ['SALE', 'RENTAL'],
     },
     price: DataTypes.FLOAT,
-    propertyTypeid: DataTypes.UUID,
-    nastatusme: {
+    propertyTypeId: DataTypes.UUID,
+    status: {
       type: DataTypes.ENUM,
       values: ['PENDING', 'CANCEL', 'APPROVED'],
     },
@@ -37,12 +37,14 @@ module.exports = (sequelize, DataTypes) => {
         return this.setDataValue('images', JSON.stringify(arrayImages));
       }
     },
-    featuredImages: DataTypes.STRING,
+    featuredImage: DataTypes.STRING,
     postedBy: DataTypes.UUID,
     bedRoom: DataTypes.INTEGER,
     bathRoom: DataTypes.INTEGER,
     propertySize: DataTypes.FLOAT,
     yearBuilt: DataTypes.INTEGER,
+    owner: DataTypes.UUID,
+
   }, {
     sequelize,
     modelName: 'Property',
