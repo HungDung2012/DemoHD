@@ -17,7 +17,7 @@ const verifyToken = (req, res, next) => {
 
 const isAgent = async (req, res, next) => {
     const {roleCode} = req.user
-    if(roleCode === 'ROL7') {
+    if(roleCode !== 'ROL1' || roleCode !== 'ROL5' || roleCode !== 'ROL3' ) {
         return throwErrorWithStatus(401, 'Bạn không có quyền truy cập', res, next)
     }
     next()
@@ -25,7 +25,7 @@ const isAgent = async (req, res, next) => {
 
 const isOwner = async (req, res, next) => {
     const {roleCode} = req.user
-    if(roleCode === 'ROL7' || roleCode === 'ROL5') {
+    if(roleCode !== 'ROL1' || roleCode !== 'ROL3') {
         return throwErrorWithStatus(401, 'Bạn không có quyền truy cập', res, next)
     }
     next()
@@ -33,7 +33,7 @@ const isOwner = async (req, res, next) => {
 
 const isAdmin = async (req, res, next) => {
     const {roleCode} = req.user
-    if(roleCode === 'ROL1') {
+    if(roleCode !== 'ROL1') {
         return throwErrorWithStatus(401, 'Bạn không có quyền truy cập', res, next)
     }
     next()

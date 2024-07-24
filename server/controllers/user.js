@@ -18,6 +18,6 @@ const getCurrent = asyncHandler(async(req, res) => {
 })
 
 module.exports = {
-    getCurrent
+    getCurrent,
 }
 
