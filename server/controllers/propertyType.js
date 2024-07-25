@@ -4,7 +4,7 @@ const { throwErrorWithStatus } = require('../middlewares/errorHandler')
 const { query } = require('express')
 const { options } = require('joi')
 const { Op, Sequelize } = require('sequelize')
-
+const redis = require('../config/redis.config')
 
 const createNewPropertyType = asyncHandler(async(req, res) => {
     const { name } = req.body
@@ -48,10 +48,18 @@ const getPropertyTypes = asyncHandler(async(req, res) => {
     
     // Filter by client queries
     if(!limit){
+        const alreadyGetAll = await redis.get('get-property-type')
+        if(alreadyGetAll) 
+            return res.json({
+                success: true,
+                mes: 'Got.',
+                propertytype: JSON.parse(alreadyGetAll),
+            })
         const response = await db.PropertyType.findAll({
             where: query,
             ...options,
         })
+        redis.set('get-property-type', JSON.stringify(response))
         return res.json({
             success: response.length > 0,
             mes: response.length > 0 ? 'Got.' : 'Cannot get propertyTypes.',
