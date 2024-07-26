@@ -6,5 +6,6 @@ const validateDto = require('../middlewares/validation')
 const { verifyToken } = require('../middlewares/verifyToken')
 
 router.get('/current', verifyToken, ctrls.getCurrent)
+router.get('/roles', ctrls.getRoles)
 
 module.exports = router

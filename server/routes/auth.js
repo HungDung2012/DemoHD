@@ -4,7 +4,7 @@ const ctrls = require('../controllers/auth')
 const router = require('express').Router()
 const joi = require("joi")
 const validateDto = require('../middlewares/validation')
-const {stringReq, numberReq, string} = require('../middlewares/joiSchema')
+const {stringReq, numberReq, string, array} = require('../middlewares/joiSchema')
 
 
 router.post(

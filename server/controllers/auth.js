@@ -3,6 +3,7 @@ const db = require('../models')
 const { throwErrorWithStatus } = require('../middlewares/errorHandler')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { where } = require('sequelize')
 
 const register = asyncHandler(async(req, res) => {
     // client gui len bang urlencoded hoac formdata => req.body
@@ -10,12 +11,23 @@ const register = asyncHandler(async(req, res) => {
     // client api/user/:id => req.params
 
     // DTO: Data Transfer Object
-    const { phone } = req.body
+    const { phone, name, password } = req.body
     // handle logic
     const response = await db.User.findOrCreate({
         where: { phone },
-        defaults: req.body
+        defaults: {
+            phone, name, password
+        },
     })
+    const userId = response[0]?.id
+    
+    if(userId){
+        const roleCode = ['ROL7']
+        if(req.body?.roleCode) roleCode.push(req.body?.roleCode)
+        const roleCodeBulk = roleCode.map(el => ({ userId, roleCode: role }))
+        const updateRole = await db.User_Role.bulkreate(roleCodeBulk)
+        if(!updateRole) await db.destroy({ where: { id: userId }})
+    }
     return res.json({
         success: response[1],
         mes: response[1] ? 'Your account is created' : 'PhoneNumber is already had exists',

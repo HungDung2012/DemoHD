@@ -12,7 +12,7 @@ import Login from '~/components/login/Login'
 
 const Navigation = ({ location, navigate }) => {
   const { setModal } = useAppStore()
-  const { token } = useUserStore()
+  const { current } = useUserStore()
   return (
     <div 
       className={twMerge(
@@ -44,7 +44,7 @@ const Navigation = ({ location, navigate }) => {
             {el.text}
           </NavLink>
         ))}
-        {!token ? ( 
+        {!current ? ( 
           <Button 
             className={twMerge(
               clsx(

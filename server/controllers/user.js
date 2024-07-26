@@ -17,7 +17,20 @@ const getCurrent = asyncHandler(async(req, res) => {
     
 })
 
+const getRoles = asyncHandler(async(req, res) => {
+    const response = await db.Role.findAll({
+        attributes: ['code', 'value'],
+    })
+    return res.json({
+        success:Boolean(response),
+        mes: response ? 'Got.' : 'Cannot get roles.',
+        roles: response,
+    })
+    
+})
+
 module.exports = {
     getCurrent,
+    getRoles,
 }
 

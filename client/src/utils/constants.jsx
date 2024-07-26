@@ -51,7 +51,7 @@ export const adminSidebar = [
             },
             {
                 id: 1231,
-                path: `/${path.ADMIN_LAYOUT}/${path.CREATE_PROPERTY_TYPE}`,
+                path: `/${path.ADMIN_LAYOUT}/${path.MANAGE_PROPERTY_TYPE}`,
                 name: 'Manage',
             },
         ],

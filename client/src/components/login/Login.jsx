@@ -14,7 +14,7 @@ const Login = () => {
   const [variant, setVariant] = useState('LOGIN')
   const [isloading, setIsLoading] = useState(false)
   const { setModal } = useAppStore()
-  const { token, setToken } = useUserStore()
+  const { token, setToken, roles } = useUserStore()
   const { 
     register, 
     formState: {errors}, 
@@ -95,7 +95,7 @@ const Login = () => {
         validate={{ 
           required: "This field is required",
           pattern:{
-            value: /(0[3|5|7|8|9])+([0-9]{8})\b/,
+            value: /(0[1|3|5|7|8|9])+([0-9]{8})\b/,
             message: 'Invalid phone number.',
           }
         }}
@@ -128,13 +128,14 @@ const Login = () => {
         <InputRadio 
           label='Type account' 
           register={register} 
-          id='role'
+          id='roleCode'
           errors={errors}
           validate={{ required: "This field is required"}}
-          options={[
-            {label: 'User', value: 'USER'},
-            {label: 'Agent', value: 'AGENT'},
-          ]}  
+          optionsClassname= 'grid grid-cols-3 gap-4'
+          options= { roles
+            ?.filter( el => el.code !== 'ROL1' )
+            ?.map(el => ({ label: el.value, value: el.code }))
+          }  
         />
       )}
 
