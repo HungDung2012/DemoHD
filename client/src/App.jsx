@@ -11,7 +11,7 @@ import { AdminLayout, CreatePropertyType, Dashboard, ManagePropertyType } from '
 
 const App = () => {
   const { isShowModal } = useAppStore()
-  const { getRoles ,getCurrent, token } = useUserStore()
+  const { getCurrent , getRoles , token } = useUserStore()
   useEffect(() => {
     getCurrent()
     getRoles()

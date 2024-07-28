@@ -8,7 +8,7 @@ export const useUserStore = create(
             token: null,
             current: null,
             roles: [],
-            setToken: (token) => set({ token }),
+            setToken: (token) => set( () => ({ token })),
             getCurrent: async () => {
                 const response = await apiGetCurrent()
                 if (response.success) return set(() => ({current: response.currentUser}))
@@ -16,7 +16,7 @@ export const useUserStore = create(
             },
             getRoles: async () => {
                 const response = await apiGetRoles()
-                if (response.success) return set(() => ({roles: response.roles}))
+                if (response.success) return set(() => ({ roles: response.roles}))
                 else return set(() => ({ roles: [] }))
             },
         }),
