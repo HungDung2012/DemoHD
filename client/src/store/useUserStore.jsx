@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { apiGetCurrent, apiGetRoles } from '~/apis/user'
@@ -19,6 +20,7 @@ export const useUserStore = create(
                 if (response.success) return set(() => ({ roles: response.roles}))
                 else return set(() => ({ roles: [] }))
             },
+            Logout: () => set(() => ({ token: null, current: null })),
         }),
         {
             name: "rest06",

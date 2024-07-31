@@ -6,6 +6,7 @@ import { apiUpLoadImages } from '~/apis/beyond';
 import { useForm } from 'react-hook-form';
 import { CgSpinner } from "react-icons/cg";
 import {AiOutlineCloseCircle} from "react-icons/ai"
+import { toast } from 'react-toastify';
 
 
 const InputFile = ({
@@ -14,28 +15,37 @@ const InputFile = ({
     id, 
     validate,
     multiple,
-    getImages
+    getImages,
+    errors,
 }) => {
-    const {register, formState:{errors}, watch} = useForm()
+    const {register, watch} = useForm()
     const rawImages = watch(id)
     const [images, setImages] = useState([])
-    const [isLoading, setisLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const handleUpLoad = async(files) => {
         const formData = new FormData()
         const imageLink = []
-        setisLoading(true)
+        setIsLoading(true)
+        const upLoadPromises = []
         for(let file of files){
             formData.append('file', file)
             formData.append(
                 'upload_preset', 
                 import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESETS
             )
-            
-            const response = await apiUpLoadImages(formData)
-            if(response.status === 200) imageLink.push({id: response.data.public_id, path: response.data.secure_url})
+            upLoadPromises.push(apiUpLoadImages(formData))        
         }
-        setisLoading(false)
-        setImages(imageLink)
+        const response = await Promise.all(upLoadPromises)
+        setIsLoading(false)
+        if( response && response.length > 0){
+            const tempArrImage = []
+            for(let result of response){
+                if(result.status === 200){
+                    tempArrImage.push({ id: result.data.public_id, path: result.data.secure_url})
+                }
+            }
+            setImages(tempArrImage)
+        }else toast.error('Upload images failed.')
     }
     useEffect(() => {
         if(rawImages && rawImages instanceof FileList && rawImages.length > 0 ) {
@@ -44,8 +54,13 @@ const InputFile = ({
     }, [rawImages])
 
     useEffect(() => {
-        if(images && images.length > 0) getImages(images)
-    },[images])
+        getImages(images)
+    }, [images])
+
+    const handleDeleteImage = (e, imageId) => {
+        e.preventDefault()
+        setImages(prev => prev.filter((el) => el.id !== imageId))
+    }
 
     return (
         <div 
@@ -79,10 +94,8 @@ const InputFile = ({
                             {images?.map((el, idx) => 
                                 <div key = {idx} className='col-span-1 relative'>
                                     <span 
-                                        onClick={() => 
-                                            setImages(prev =>   
-                                                prev.filter(item => item.id !== el.id )
-                                            )
+                                        onClick={(e) => 
+                                            handleDeleteImage(e, el.id)
                                         } 
                                         className='w-6 h-6 bg-gray-100 round-full flex items-center justify-center cursor-pointer absolute top-1 right-1'
                                     > 

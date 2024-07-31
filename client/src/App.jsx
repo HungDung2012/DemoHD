@@ -8,6 +8,7 @@ import { useUserStore } from './store/useUserStore'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { AdminLayout, CreatePropertyType, Dashboard, ManagePropertyType } from './papes/admin'
+import { Personal, UserLayout } from './papes/user'
 
 const App = () => {
   const { isShowModal } = useAppStore()
@@ -28,14 +29,18 @@ const App = () => {
           <Route path={path.PROPERTIES} element={<Properties />} />
           <Route path={path.OUR_AGENTS} element={<OurAgents />} />
         </Route>
-        
           {/* Admin routes */}
-          <Route path={path.ADMIN_LAYOUT} element = {<AdminLayout />}>
-            <Route path={path.DASHBOARD} element={<Dashboard />} />
-            <Route path={path.CREATE_PROPERTY_TYPE} element={<CreatePropertyType />} />
-            <Route path={path.MANAGE_PROPERTY_TYPE} element={<ManagePropertyType />} />
-          <Route />
+        <Route path={path.ADMIN_LAYOUT} element = {<AdminLayout />}>
+          <Route path={path.ADMIN_DASHBOARDDASHBOARD} element={<Dashboard />} />
+          <Route path={path.CREATE_PROPERTY_TYPE} element={<CreatePropertyType />} />
+          <Route path={path.MANAGE_PROPERTY_TYPE} element={<ManagePropertyType />} />
         </Route>
+
+        {/* User routes */}
+        <Route path={path.USER_LAYOUT} element={<UserLayout/>} >
+          <Route path={path.PERSONAL} element={<Personal/>} />
+        </Route>
+
       </Routes>
       <ToastContainer
         position="top-center"

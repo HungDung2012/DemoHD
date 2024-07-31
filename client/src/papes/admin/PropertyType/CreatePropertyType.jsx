@@ -1,7 +1,9 @@
 import React from 'react'
 import { Button, InputFile, InputForm, InputText, Textarea, Title } from '~/components'
 import { CiCirclePlus } from "react-icons/ci";
-import { useForm } from 'react-hook-form';
+import { get, useForm } from 'react-hook-form';
+import { apiCreateNewPropertyType } from '~/apis/propertyType';
+import { toast } from 'react-toastify';
 
 const CreatePropertyType = () => {
   const {
@@ -9,15 +11,37 @@ const CreatePropertyType = () => {
     formState: {errors}, 
     handleSubmit, 
     reset, 
-    setValue
+    setValue,
+    setError,
+    clearErrors
   } = useForm()
-  const handleCreateNewPropertyType = (data) => {
-    console.log(data)
+  const handleCreateNewPropertyType = async (data) => {
+    if(!data.images || data.images.length === 0){ 
+      setError("images", {
+        message: "This field cannot empty.",
+        type: "required",
+      }) 
+    }else {
+      const {images, ...payload} = data
+      const response = await apiCreateNewPropertyType({...payload, image: images[0]})
+    }
+    if(reponse.success){
+      toast.success(response.mes)
+      reset()
+      getImages([])
+    }else toast.error(response.mes)
   }
+
+  const getImages = (images) => {
+    if(images && images.length > 0)
+      clearErrors('images')
+    setValue('images', images?.map(el => el.path ))
+  }
+
   return (
     <div className=''>
-      <Title title='create New Property Type'>
-        <Button handleOnClick={handleSubmit(handleCreateNewPropertyType)}> 
+      <Title title='Create New Property Type'>
+        <Button className='font-semibold' handleOnClick={handleSubmit(handleCreateNewPropertyType)}> 
           <CiCirclePlus size = {20}/> 
           <span>Create</span> 
         </Button>
@@ -43,8 +67,7 @@ const CreatePropertyType = () => {
           errors={errors}
           validate={{required: 'This field cannot empty.'}}
           label='Image'
-          multiple={true}
-          getImages={(images) => setValue('images', images?.(el => el.path ))}
+          getImages={getImages}
         />
       </form>
     </div>

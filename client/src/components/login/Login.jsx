@@ -8,6 +8,8 @@ import { toast } from 'react-toastify'
 import withRouter from '~/hocs/withRouter'
 import { useAppStore } from '~/store/useAppStore'
 import { useUserStore } from '~/store/useUserStore'
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
+import auth from '~/utils/firebaseConfig'
 
 
 const Login = () => {
@@ -24,8 +26,45 @@ const Login = () => {
   
   useEffect(() => { reset() },[variant])
 
+
+  const handleCaptchaVerify = () => {
+    if(!window.recaptchaVerify) {
+      window.recaptchaVerify = new RecaptchaVerifier(
+        auth, 
+        'recaptcha-verifier', 
+        {
+          size: 'invisible',
+          callback: (response) => {
+            // console.log({ callback: response })
+            // handleSendOTP()
+          },
+          'expired-callback': () => {
+            // console.log({expired: response})
+          },
+        }
+      )
+   }
+  }
+
+  const handleSendOTP = (phone) => {
+    handleCaptchaVerify()
+    const verifier = window.recaptchaVerify
+    const formatPhone = `+84` + phone.slice(1)
+    signInWithPhoneNumber(auth, formatPhone, verifier)
+    .then((result) => { 
+      toast.success('Sent OTP to your phone.')
+     })
+    .catch((error) => {
+      toast.success('Something went wrong.')
+    })
+  }
+
   const onSubmit = async (data) => {
     if (variant === 'REGISTER') {
+      // if(data?.roleCode !== 'ROL7')  {
+      //    Logic verify SĐT
+      //   handleSendOTP(data.phone)
+      // }
       setIsLoading(true)
       const response = await apiRegister(data)
       setIsLoading(false)
@@ -73,6 +112,7 @@ const Login = () => {
       >
         Login
       </span>
+      <div id ='recaptcha-verifier'></div>
       <span
         onClick={() => setVariant('REGISTER')}
         className={clsx(

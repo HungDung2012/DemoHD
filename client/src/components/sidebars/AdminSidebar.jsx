@@ -1,8 +1,9 @@
 import clsx from 'clsx'
 import React, { Fragment, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { adminSidebar } from '~/utils/constants'
 import { FaCaretDown, FaCaretRight } from "react-icons/fa";
+import { RiShareForwardLine } from "react-icons/ri";
 
 const AdminSidebar = () => {
     const [activeTabs, setActiveTabs] = useState([])
@@ -15,7 +16,9 @@ const AdminSidebar = () => {
   return (
     <div className='h-screen w-full'>
         <div className='w-full flex flex-col p-4 items-center justify-center'>
-            <img src="/logo1.png" alt="logo" className='w-full object-contain' />
+            <Link to={'/'}>
+            <img src="/logo1.png" alt="logo" className='w-full object-contain'  />
+            </Link>
             <small className='text-red-100 italic'>Admin workspace</small>
         </div>
         <div className='mt-6'>
@@ -62,7 +65,6 @@ const AdminSidebar = () => {
                                             }
                                             to={subEl.path}
                                         >
-                                            <span className='text-2xl'></span>
                                             <span className='select-none'>{subEl.name}</span>
                                         </NavLink>
                                     ))}
@@ -71,6 +73,7 @@ const AdminSidebar = () => {
 
                         </>
                     )}
+                    
                 </Fragment>
             ))}
         </div>
