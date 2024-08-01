@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['SALE', 'RENTAL'],
     },
     price: DataTypes.FLOAT,
-    propertyTypeId: DataTypes.UUID,
+    propertyTypeId: DataTypes.INTERGER,
     status: {
       type: DataTypes.ENUM,
       values: ['PENDING', 'CANCEL', 'APPROVED'],
@@ -38,12 +38,12 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     featuredImage: DataTypes.STRING,
-    postedBy: DataTypes.UUID,
+    postedBy: DataTypes.INTERGER,
     bedRoom: DataTypes.INTEGER,
     bathRoom: DataTypes.INTEGER,
     propertySize: DataTypes.FLOAT,
     yearBuilt: DataTypes.INTEGER,
-    owner: DataTypes.UUID,
+    owner: DataTypes.INTERGER,
   }, {
     sequelize,
     modelName: 'Property',

@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User_Role.init({
-    userId: DataTypes.UUID,
+    userId: DataTypes.INTERGER,
     roleCode: DataTypes.STRING,
   }, {
     sequelize,

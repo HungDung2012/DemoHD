@@ -21,43 +21,43 @@ const Login = () => {
     register, 
     formState: {errors}, 
     handleSubmit ,
-    reset
+    reset,
   } = useForm()
   
   useEffect(() => { reset() },[variant])
 
 
-  const handleCaptchaVerify = () => {
-    if(!window.recaptchaVerify) {
-      window.recaptchaVerify = new RecaptchaVerifier(
-        auth, 
-        'recaptcha-verifier', 
-        {
-          size: 'invisible',
-          callback: (response) => {
-            // console.log({ callback: response })
-            // handleSendOTP()
-          },
-          'expired-callback': () => {
-            // console.log({expired: response})
-          },
-        }
-      )
-   }
-  }
+  // const handleCaptchaVerify = () => {
+  //   if(!window.recaptchaVerify) {
+  //     window.recaptchaVerify = new RecaptchaVerifier(
+  //       auth, 
+  //       'recaptcha-verifier', 
+  //       {
+  //         size: 'invisible',
+  //         callback: (response) => {
+  //           // console.log({ callback: response })
+  //           // handleSendOTP()
+  //         },
+  //         'expired-callback': () => {
+  //           // console.log({expired: response})
+  //         },
+  //       }
+  //     )
+  //  }
+  // }
 
-  const handleSendOTP = (phone) => {
-    handleCaptchaVerify()
-    const verifier = window.recaptchaVerify
-    const formatPhone = `+84` + phone.slice(1)
-    signInWithPhoneNumber(auth, formatPhone, verifier)
-    .then((result) => { 
-      toast.success('Sent OTP to your phone.')
-     })
-    .catch((error) => {
-      toast.success('Something went wrong.')
-    })
-  }
+  // const handleSendOTP = (phone) => {
+  //   handleCaptchaVerify()
+  //   const verifier = window.recaptchaVerify
+  //   const formatPhone = `+84` + phone.slice(1)
+  //   signInWithPhoneNumber(auth, formatPhone, verifier)
+  //   .then((result) => { 
+  //     toast.success('Sent OTP to your phone.')
+  //    })
+  //   .catch((error) => {
+  //     toast.success('Something went wrong.')
+  //   })
+  // }
 
   const onSubmit = async (data) => {
     if (variant === 'REGISTER') {
@@ -112,7 +112,7 @@ const Login = () => {
       >
         Login
       </span>
-      <div id ='recaptcha-verifier'></div>
+      {/* <div id ='recaptcha-verifier'></div> */}
       <span
         onClick={() => setVariant('REGISTER')}
         className={clsx(
@@ -120,7 +120,6 @@ const Login = () => {
             'border-b-4 border-main-700',
           'cursor-pointer'
         )}
-
       >
         New account
       </span>
@@ -179,8 +178,12 @@ const Login = () => {
         />
       )}
 
-      <Button handleOnClick={handleSubmit(onSubmit)} className='py-2 my-6'> 
-        {variant === 'LOGIN' ? 'Sign in' : 'Register'} 
+      <Button 
+        disabled={isloading}
+        handleOnClick={handleSubmit(onSubmit)} 
+        className='py-2 my-6'
+      > 
+          {variant === 'LOGIN' ? 'Sign in' : 'Register'} 
       </Button>
       <span className='cursor-pointer text-main-500 hover:underline w-full text-center'>
         Forgot your password?

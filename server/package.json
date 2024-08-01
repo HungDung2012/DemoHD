@@ -7,7 +7,7 @@
     "redis": "redis-server",
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "migrate:up": "npx sequelize-cli db:migrate",
+    "mig": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo"
   },
   "author": "",

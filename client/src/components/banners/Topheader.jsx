@@ -14,19 +14,19 @@ const Topheader = ({ location }) => {
   const { current, Logout } = useUserStore()
   const optionBox = useRef()
   const [isShowOptions, setIsShowOptions] = useState(false)
-  useEffect(() => {
-    const handleOnclick = (e) => { 
-      console.log(optionBox.current.contains(e.target))
-      if(optionBox.current.contains(e.target)){
-        setIsShowOptions(true)
-      }else setIsShowOptions(false)
-    }
-    window.addEventListener('click', handleOnclick)
+  // useEffect(() => {
+  //   const handleOnclick = (e) => { 
+  //     console.log(optionBox.current.contains(e.target))
+  //     if(optionBox.current.contains(e.target)){
+  //       setIsShowOptions(true)
+  //     }else setIsShowOptions(false)
+  //   }
+  //   window.addEventListener("click", handleOnclick)
     
-    return () => {
-      window.removeEventListener('click', handleOnclick)
-    }
-  },[])
+  //   return () => {
+  //     window.removeEventListener("click", handleOnclick)
+  //   }
+  // },[])
 
   return (
     <div className={twMerge(
@@ -57,7 +57,7 @@ const Topheader = ({ location }) => {
         </div>  
        {current && (
           <div 
-           ref={optionBox} 
+          //  ref={optionBox} 
            onClick={() => setIsShowOptions(!isShowOptions)} 
            className="flex items-center relative cursor-pointer hover:bg-overlay-30 p-2 rounded-md gap-4 pl-8 border-l border-main-400"
           >
