@@ -14,19 +14,22 @@ const Topheader = ({ location }) => {
   const { current, Logout } = useUserStore()
   const optionBox = useRef()
   const [isShowOptions, setIsShowOptions] = useState(false)
-  // useEffect(() => {
-  //   const handleOnclick = (e) => { 
-  //     console.log(optionBox.current.contains(e.target))
-  //     if(optionBox.current.contains(e.target)){
-  //       setIsShowOptions(true)
-  //     }else setIsShowOptions(false)
-  //   }
-  //   window.addEventListener("click", handleOnclick)
+  useEffect(() => {
+    const handleOnclick = (e) => { 
+      if(optionBox.current && optionBox.current.contains(e.target)){
+        setIsShowOptions(true)
+      }else setIsShowOptions(false)
+    }
+    document.addEventListener("click", handleOnclick)
     
-  //   return () => {
-  //     window.removeEventListener("click", handleOnclick)
-  //   }
-  // },[])
+    return () => {
+      document.removeEventListener("click", handleOnclick)
+    }
+  },[])
+
+  const res = current?.id.toString()
+  
+
 
   return (
     <div className={twMerge(
@@ -57,13 +60,15 @@ const Topheader = ({ location }) => {
         </div>  
        {current && (
           <div 
-          //  ref={optionBox} 
-           onClick={() => setIsShowOptions(!isShowOptions)} 
+           ref={optionBox} 
+           onClick={() => setIsShowOptions(true)} 
            className="flex items-center relative cursor-pointer hover:bg-overlay-30 p-2 rounded-md gap-4 pl-8 border-l border-main-400"
           >
             <div className='flex flex-col gap-2'>
               <span>{current?.name}</span>
-              <span> ID: #<span> {current?.id?.slice(0, 6)} </span> </span>
+              <span> 
+                ID: #<span>{res?.slice(0,6)}</span> 
+              </span>
             </div>
             <img 
               src={current?.avatar || '/user.svg'} 

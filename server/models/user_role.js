@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       User_Role.belongsTo(models.Role, { 
         foreignKey: 'roleCode', 
         targetKey: 'code' , 
-        as: 'roleName' 
+        as: 'roleName',
       })
     }
   }
   User_Role.init({
-    userId: DataTypes.INTERGER,
+    userId: DataTypes.INTEGER,
     roleCode: DataTypes.STRING,
   }, {
     sequelize,

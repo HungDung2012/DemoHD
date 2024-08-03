@@ -1,4 +1,5 @@
 import React from 'react'
+import Search from '../../components/searchs/Search'
 
 const home = () => {
   return (
@@ -21,6 +22,7 @@ const home = () => {
         </span>
       </div>
     </div>
+    <Search/>
     <div className="w-main mx-auto">content</div>
   </div>
   )

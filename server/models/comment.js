@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Comment.init({
     text: DataTypes.TEXT,
-    propertyId: DataTypes.INTERGER,
-    uid: DataTypes.INTERGER,
-    parentComment: DataTypes.INTERGER,
+    propertyId: DataTypes.INTEGER,
+    uid: DataTypes.INTEGER,
+    parentComment: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Comment',
