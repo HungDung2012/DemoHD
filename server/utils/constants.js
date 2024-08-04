@@ -2,6 +2,7 @@ const {faker} = require('@faker-js/faker');
 const bcrypt = require('bcrypt')
 const hashPassword = (pwd) => bcrypt.hashSync(pwd, bcrypt.genSaltSync(10));
 
+
 module.exports =  {
     roles: [
         {
@@ -95,18 +96,19 @@ module.exports =  {
         },
     ],
     properties: Array.from([...Array(60).keys()]).map( () => ({
-        name: faker.lorem.sentence({max: 2, min: 1}).replace('.', ' '),
+        name: faker.lorem.sentence({max: 10, min: 5}).replace(".", " "),
         description: faker.lorem.sentences({min: 5, max: 10}),
         listingType: faker.helpers.arrayElement(["SALE","RENTAL"]),
         price: faker.number.int({ max: 100000, min: 1000 }),
         propertyTypeId: faker.number.int({max: 3, min: 1}),
         owner: faker.helpers.arrayElement([7,9]),
+        address: faker.location.streetAddress({useFullAddress: true}),
         status: 'PENDING',
         isAvailable: true,
-        featuredImage: faker.image.urlLoremFlickr({category: 'real estate'}),
+        featuredImage: faker.image.urlLoremFlickr({ category: "realestate" }),
         images: JSON.stringify(
             Array.from([...Array(faker.number.int({max: 7, min: 5})).keys()])
-                .map(() => `${faker.image.urlLoremFlickr({category: 'real estate'
+                .map(() => `${faker.image.urlLoremFlickr({ category: "realestate"
                     })}?ramdom=${faker.string.numeric(30)}`)
         ),
         postedBy: faker.helpers.arrayElement([7, 9, 8]),

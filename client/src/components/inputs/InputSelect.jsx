@@ -29,7 +29,7 @@ const InputSelect = ({
             <select 
                 type={type} 
                 id={id} 
-                className={twMerge(clsx(style,'placeholder:text-sm form-select text-gray-500' , inputClassname))}
+                className={twMerge(clsx(style,'placeholder:text-sm text-gray-500' , inputClassname))}
                 {...register(id, validate)} 
             >
                 <option value="" > {placeholder} </option>

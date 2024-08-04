@@ -76,7 +76,7 @@ const getPropertyTypes = asyncHandler(async(req, res) => {
         ...options,
     }) 
     return res.json({
-        success: response.length > 0,
+        success: Boolean(response),
         mes: response.length > 0 ? 'Got.' : 'Cannot get propertyTypes.',
         propertytype: response,
     })

@@ -1,20 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const db = require('../models')
-const { throwErrorWithStatus } = require('../middlewares/errorHandler')
 const redis = require('../config/redis.config')
-
-const createNewProperty = asyncHandler(async(req, res) => {
-    const { uid } = req.user
-    const response = await db.User.User.create
-    return res.json({
-        success:Boolean(response),
-        mes: response ? 'Got.' : 'Cannot get user.',
-        currentUser: response,
-    })
-    
-})
-
-
 
 module.exports = {
     createNewProperty: asyncHandler(async(req, res) => {
@@ -52,7 +38,12 @@ module.exports = {
         // [createdAt, -name] 
         // sort: createdAt, -name
         if(sort){
-            const order = sort.split(',').map(el => el.startsWith('-') ? [el.elreplace("-", ""), 'DESC'] : [el, 'ASC'])
+            const order = sort
+                .split(',')
+                .map(el => 
+                    el.startsWith('-') ? [el.elreplace("-", ""), 'DESC'] : [el, 'ASC']
+                )
+            
             options.order = order
         }
         
@@ -84,11 +75,23 @@ module.exports = {
         const response = await db.Property.findAndCountAll({
             where: query,
             ...options,
+            include: [
+                {
+                    model: db.User, 
+                    as: 'rPostedBy', 
+                    attributes: ["avatar", "phone", "name", "email"],
+                },
+                {
+                    model: db.User, 
+                    as: 'rOwner', 
+                    attributes: ["avatar", "phone", "name", "email"],
+                },
+            ],
         }) 
         return res.json({
-            success: response.length > 0,
+            success: Boolean(response),
             mes: response.length > 0 ? 'Got.' : 'Cannot get properties.',
-            propertyties: response,
+            properties: response,
         })
         
     })
