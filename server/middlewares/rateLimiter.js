@@ -23,15 +23,15 @@ const rateLimiter = async (req, res, next) => {
         return next()
     }
 
-    if(client.count > +process.env.RATE_LIMIT_COUNT){
-        return res.status(429).json({
-            success: false,
-            mes: 'Dont spam!!!'
-        })
-    }else{
+    // if(client.count > +process.env.RATE_LIMIT_COUNT){
+    //     return res.status(429).json({
+    //         success: false,
+    //         mes: 'Dont spam!!!'
+    //     })
+    // }else{
         await redis.hSet(`ratelimit-${clientId}`, 'count', +client.count + 1)
         return next()
-    }
+    // }
 
 }
 

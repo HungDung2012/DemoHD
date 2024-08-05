@@ -31,7 +31,7 @@ const App = () => {
         </Route>
           {/* Admin routes */}
         <Route path={path.ADMIN_LAYOUT} element = {<AdminLayout />}>
-          <Route path={path.ADMIN_DASHBOARDDASHBOARD} element={<Dashboard />} />
+          <Route path={path.ADMIN_DASHBOARD} element={<Dashboard />} />
           <Route path={path.CREATE_PROPERTY_TYPE} element={<CreatePropertyType />} />
           <Route path={path.MANAGE_PROPERTY_TYPE} element={<ManagePropertyType />} />
         </Route>

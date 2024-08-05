@@ -34,7 +34,7 @@ export const adminSidebar = [
     {
         id: 12,
         name: 'Dashboard',
-        path: `/${path.ADMIN_LAYOUT}/${path.DASHBOARD}`,
+        path: `/${path.ADMIN_LAYOUT}/${path.ADMIN_DASHBOARD}`,
         icon: <RiDashboardLine />,
         type: 'SINGLE',
     },
@@ -62,7 +62,7 @@ export const adminSidebar = [
 export const ShowOptions = [
     {
         id: 1,
-        name: 'Persional',
+        name: 'Personal',
         code: 'ROL7',
         path: `/${path.USER_LAYOUT}/${path.PERSONAL}`,
     },

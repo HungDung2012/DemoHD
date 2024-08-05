@@ -8,6 +8,7 @@ import withRouter from '~/hocs/withRouter'
 import { useUserStore } from '~/store/useUserStore'
 import { ShowOptions } from '~/utils/constants'
 import { Link } from 'react-router-dom'
+import { FaXTwitter } from "react-icons/fa6";
 
 
 const Topheader = ({ location }) => {
@@ -34,7 +35,7 @@ const Topheader = ({ location }) => {
   return (
     <div className={twMerge(
       clsx(
-        'h-[85px] text-white border-b border-main-400 w-full bg-transparent fixed z-50 top-0 flex items-center justify-between px-[100px] py-[26px]',
+        'h-[80px] text-white border-b border-main-400 w-full bg-transparent fixed z-50 top-0 flex items-center justify-between px-[60px] py-[25px]',
         location.pathname !== '/' && 'bg-main-700'
         )
       )}
@@ -51,6 +52,7 @@ const Topheader = ({ location }) => {
             <GrFacebookOption />
             <FaInstagram size={18}/>
             <FaYoutube size={20}/>
+            <FaXTwitter size={20}/>
         </div>
         <div className="flex items-center pl-8 border-l border-main-400">
           <span className="flex items-center gap-2">

@@ -68,8 +68,7 @@ module.exports = {
             })
         }
         // Pagination
-        const prevPage = page - 1 > 0 ? page - 1 : 1
-        const offset = (prevPage - 1) * limit
+        const offset = (page && +page > 1 ? +page - 1 : 0) * limit
         if(offset) options.offset = offset
         options.limit = +limit
         const response = await db.Property.findAndCountAll({
@@ -90,10 +89,9 @@ module.exports = {
         }) 
         return res.json({
             success: Boolean(response),
-            mes: response.length > 0 ? 'Got.' : 'Cannot get properties.',
-            properties: response,
+            mes: response ? 'Got.' : 'Cannot get properties.',
+            properties: response ? {...response, limit: +limit, page: +page ? +page: 1} : null,
         })
-        
-    })
+    }),
 }
 

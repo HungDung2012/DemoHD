@@ -38,7 +38,10 @@ export default {
         'overlay-50': 'rgba(0,0,0,0.5)',
       },
       width: {
-        main: "1319px",
+        main: "1100px",
+      },
+      maxWidth: {
+        main: "1100px",
       },
     },
   },

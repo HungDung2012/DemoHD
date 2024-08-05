@@ -33,8 +33,8 @@ const InputSelect = ({
                 {...register(id, validate)} 
             >
                 <option value="" > {placeholder} </option>
-                {options.map( el => (
-                    <option className='' key={el.code} value={el.code} > 
+                {options.map( (el, idx) => (
+                    <option className='' key={idx} value={el.code} > 
                         {el.label} 
                     </option>
                 ))}

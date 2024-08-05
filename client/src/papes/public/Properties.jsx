@@ -2,24 +2,29 @@ import clsx from 'clsx'
 import { Input } from 'postcss'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSearchParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import { apiGetProperties } from '~/apis/properties'
 import { BreadCrumb, Button, InputSelect, PropertyCard } from '~/components'
+import { Pagination } from '~/components/paginations'
 
 const Properties = () => {
   const [properties, setProperties] = useState()
   const [mode, setMode] = useState('ALL')
+  const [searchParams] = useSearchParams()
   const { register, formState: {errors}, watch } = useForm()
-  const sort = watch('sort')
+  // const sort = watch('sort')
   useEffect(() => {
-    const fetchProperties = async () => {
+    const fetchProperties = async (params) => {
       const reponse = await apiGetProperties({
         limit: 9,
+        ...params,
       })
       if(reponse.success) setProperties(reponse.properties)
     }
-    fetchProperties()
-  }, [])
+  const params = Object.fromEntries([...searchParams])
+    fetchProperties(params)
+  }, [searchParams])
 
   return (
     <div className='w-full'>
@@ -89,6 +94,14 @@ const Properties = () => {
           {properties?.rows?.map((el) => (
             <PropertyCard key={el.id} properties={el} />
           ))}
+        </div>
+
+        <div className='flex items-center justify-center my-4'>
+          <Pagination
+            total={properties?.count}
+            limit={properties?.limit}
+            page={properties?.page}
+          />
         </div>
       </div>
     </div>

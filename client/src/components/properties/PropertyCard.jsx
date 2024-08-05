@@ -6,7 +6,6 @@ import { PiBathtub } from "react-icons/pi";
 import { IoIosHeartEmpty } from "react-icons/io";
 
 const PropertyCard = ({properties}) => {
-
   return (
     <div className='border'>
       <img src={properties?.featuredImage} 
