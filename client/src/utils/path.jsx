@@ -21,7 +21,7 @@ const path = {
     // AGENT
     AGENT_LAYOUT: 'agent',
     AGENT_DASHBOARD: 'dashboard',
-
+    //
     // OWNER
     OWNER_LAYOUT: 'owner',
     OWNER_DASHBOARD: 'dashboard',
